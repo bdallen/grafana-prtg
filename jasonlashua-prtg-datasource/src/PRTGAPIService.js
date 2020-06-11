@@ -477,15 +477,8 @@ function PRTGAPIService(alertSrv, backendSrv) {
      * @param {number} dateTo - timestamp of end time
      */
     getItemHistory(sensor, channel, dateFrom, dateTo) {
-      const hours = (dateTo - dateFrom) / 3600;
-      let avg = 0;
-      if (hours > 12 && hours < 36) {
-        avg = "300";
-      } else if (hours > 36 && hours < 745) {
-        avg = "3600";
-      } else if (hours > 745) {
-        avg = "86400";
-      }
+      //convert the interval ms to seconds that is incoming from grafana
+      let avg = $__interval_ms * 1000;
 
       const method = "historicdata.json";
       const params =
